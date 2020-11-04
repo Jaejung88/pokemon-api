@@ -1,15 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
 
+  useEffect(()=> {
+    axios("https://pokeapi.co/api/v2/pokemon/?limit=807")
+      .then(res => setPokemons(res.data.results))
+      .catch(err => console.log(err))
+  })
+
   const getPokemons = () => {
-    fetch("https://pokeapi.co/api/v2/pokemon/?limit=807")
-      .then(res => res.json())
-      .then(res => setPokemons(res.results))
+    axios("https://pokeapi.co/api/v2/pokemon/?limit=807")
+      .then(res => setPokemons(res.data.results))
       .catch(err => console.log(err))
   }
 
